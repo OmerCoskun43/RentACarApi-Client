@@ -22,8 +22,9 @@ const useAuthCalls = () => {
     dispatch(fetchStart());
     try {
       const { data } = await axiosPublic.post("/auth/login/", userInfo);
+      console.log("data :>> ", data);
       dispatch(loginSuccess(data));
-      toastSuccessNotify("Login işlemi basarili.");
+      toastSuccessNotify("Login  successfully.");
       navigate("/");
     } catch (error) {
       dispatch(fetchFail());
@@ -47,7 +48,7 @@ const useAuthCalls = () => {
     dispatch(fetchStart());
     try {
       await axiosWithToken("/auth/logout/");
-      toastSuccessNotify("Çıkış işlemi başarili.");
+      toastSuccessNotify("Logout finished successfully.");
       dispatch(logoutSuccess());
     } catch (error) {
       dispatch(fetchFail());

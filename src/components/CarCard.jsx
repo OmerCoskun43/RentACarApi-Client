@@ -9,7 +9,7 @@ const CarCard = ({ car }) => {
   const navigate = useNavigate();
   return (
     <div
-      className="border border-gray-300 rounded-xl p-3 mt-2  bg-yellow-500
+      className="border border-gray-300 rounded-xl p-3 mt-2   bg-yellow-500
     
     "
     >
@@ -29,7 +29,7 @@ const CarCard = ({ car }) => {
         </Carousel>
         <button
           onClick={() => navigate(`/cars/${car._id}`)}
-          className="w-[25%] absolute bottom-0 right-0 h-[3rem] border-[2px] border-red-500 rounded-2xl bg-blue-600 hover:bg-blue-400 text-white font-bold"
+          className="w-[25%] absolute bottom-0 right-0 h-[3rem] border-[2px] border-red-500 rounded-2xl bg-blue-600 hover:bg-blue-400 text-white font-bold text-sm md-text-xl"
         >
           Get Reservation
         </button>

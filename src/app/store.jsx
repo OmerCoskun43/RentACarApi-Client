@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/authSlice";
 import carReducer from "../features/carSlice";
+import reservationReducer from "../features/reservationSlice";
 import {
   persistStore,
   persistReducer,
@@ -25,6 +26,7 @@ const store = configureStore({
   reducer: {
     auth: persistedReducer,
     car: carReducer,
+    reservation: reservationReducer,
   },
 
   middleware: (getDefaultMiddleware) =>

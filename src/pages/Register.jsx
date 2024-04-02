@@ -1,22 +1,24 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import useAuthCalls from "../services/useAuthCalls";
+import { Link } from "react-router-dom";
 
-/* eslint-disable react/no-unknown-property */
-const Login = () => {
-  const { login } = useAuthCalls();
+const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
   });
 
+  const { register } = useAuthCalls();
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(formData);
+    register(formData);
 
     setFormData({
       username: "",
@@ -24,10 +26,11 @@ const Login = () => {
       password: "",
     });
   };
+
   return (
     <div className="relative border border-grey-100 w-[350px] md:w-[430px] mx-auto mt-5 justify-center items-center bg-white  flex flex-col text-gray-700 bg-transparent shadow-none rounded-xl bg-clip-border">
       <h1 className="block font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-        LOGIN
+        REGISTER
       </h1>
       <form
         onSubmit={handleSubmit}
@@ -123,12 +126,12 @@ const Login = () => {
           className="mt-6 block w-full select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           type="submit"
         >
-          Login
+          Register
         </button>
         <p className="block mt-4 font-sans text-base antialiased font-normal leading-relaxed text-center text-gray-700">
-          Do you not have an account?
-          <Link to="/register" className="ms-2 hover:underline text-red-500">
-            Register
+          Already have an account?
+          <Link to="/login" className="ms-2 hover:underline text-red-500">
+            Login
           </Link>
         </p>
       </form>
@@ -136,4 +139,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

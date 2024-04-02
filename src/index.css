@@ -6,3 +6,10 @@
 body{
     background-color: rgb(235, 229, 222);
 }
+
+@layer components {
+    .input-style {
+        @apply border p-2 rounded-md outline-none
+    }
+    
+}

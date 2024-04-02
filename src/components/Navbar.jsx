@@ -1,10 +1,15 @@
 /* eslint-disable react/prop-types */
 import { NavLink, useNavigate } from "react-router-dom";
 import useCarCalls from "../services/useCarCalls";
+import { useSelector } from "react-redux";
+import useAuthCalls from "../services/useAuthCalls";
 
 const Navbar = ({ search, setSearch, resDate, setResDate }) => {
   const navigate = useNavigate();
   const { getAvailableCars } = useCarCalls();
+  const { logout } = useAuthCalls();
+  const { user } = useSelector((state) => state.auth);
+  // console.log("user :>> ", user);
 
   const handleSearchDate = () => {
     getAvailableCars(resDate);
@@ -12,7 +17,7 @@ const Navbar = ({ search, setSearch, resDate, setResDate }) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-between mt-5 w-[95%] mx-auto px-3 gap-2 mb-2 ">
+    <div className="flex flex-col md:flex-row justify-between mt-5 w-[90%] md:w-[95%] mx-auto px-3 gap-2 mb-2 ">
       <div className="bg-blue-500 md:w-[18%] h-[3.5rem] flex justify-center items-center rounded-2xl ">
         <h1
           onClick={() => navigate("/")}
@@ -57,11 +62,60 @@ const Navbar = ({ search, setSearch, resDate, setResDate }) => {
           Search Date
         </button>
       </div>
-      <div className="md:w-[24%] bg-blue-500 h-[3.5rem] rounded-2xl flex flex-wrap justify-center items-center gap-3 text-white font-bold ">
-        <NavLink to="/login">Login</NavLink>
-        <NavLink to="/register">Register</NavLink>
-        <NavLink to="/admin">Admin</NavLink>
-        <NavLink to="/">Logout</NavLink>
+      <div className="md:w-[20%] bg-blue-500 h-[3.5rem] rounded-2xl flex flex-wrap justify-center items-center gap-3 text-white font-bold ">
+        {!user && (
+          <NavLink
+            to="/login"
+            style={({ isActive }) => {
+              return {
+                color: isActive ? "yellow" : "white",
+              };
+            }}
+          >
+            Login
+          </NavLink>
+        )}
+        {!user && (
+          <NavLink
+            to="/register"
+            style={({ isActive }) => {
+              return {
+                color: isActive ? "yellow" : "white",
+              };
+            }}
+          >
+            Register
+          </NavLink>
+        )}
+        {user && (
+          <NavLink
+            to="/profile"
+            style={({ isActive }) => {
+              return {
+                color: isActive ? "yellow" : "white",
+              };
+            }}
+          >
+            Profile
+          </NavLink>
+        )}
+        {user && user?.isAdmin && (
+          <NavLink
+            to="/admin"
+            style={({ isActive }) => {
+              return {
+                color: isActive ? "yellow" : "white",
+              };
+            }}
+          >
+            Admin
+          </NavLink>
+        )}
+        {user && (
+          <NavLink to="/" onClick={() => logout()}>
+            Logout
+          </NavLink>
+        )}
       </div>
     </div>
   );
