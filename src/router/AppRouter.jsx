@@ -17,14 +17,19 @@ const AppRouter = () => {
   });
   return (
     <Router>
-      <Navbar
-        search={search}
-        setSearch={setSearch}
-        resDate={resDate}
-        setResDate={setResDate}
-      />
+      <Navbar />
       <Routes>
-        <Route path="/" element={<Home search={search} />} />
+        <Route
+          path="/"
+          element={
+            <Home
+              search={search}
+              setSearch={setSearch}
+              resDate={resDate}
+              setResDate={setResDate}
+            />
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />

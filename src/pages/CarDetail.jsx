@@ -15,20 +15,21 @@ const CarDetail = () => {
   const { user } = useSelector((state) => state.auth);
   const { reservation } = useSelector((state) => state.reservation);
   const { createReservations } = useReservationCalls();
+  const { getReservations } = useReservationCalls();
   const [formData, setFormData] = useState({
-    userId: user?._id || "",
-    carId: car?._id || "",
+    userId: user?._id,
+    carId: car?._id,
     startDate: "",
     endDate: "",
   });
-  useEffect(() => {
-    getOneCar(id);
-  }, []);
 
-  console.log("reservation :>> ", reservation);
+  // console.log("reservation :>> ", reservation);
+  // console.log("car :>> ", car);
+  // console.log("car._id :>> ", car._id);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("formData :>> ", formData);
     createReservations(formData);
     setFormData({
       ...formData,
@@ -39,6 +40,11 @@ const CarDetail = () => {
     });
     console.log(formData);
   };
+
+  useEffect(() => {
+    getOneCar(id);
+    getReservations(user?._id);
+  }, []);
 
   return (
     <div>
@@ -144,7 +150,7 @@ const CarDetail = () => {
           </form>
 
           {reservation && (
-            <div>
+            <div className="flex flex-col gap-2">
               <h1 className="font-bold text-center md:text-2xl">
                 {" "}
                 Reservation Details{" "}

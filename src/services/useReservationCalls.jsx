@@ -14,10 +14,10 @@ const useReservationCalls = () => {
   const { axiosWithToken, axiosPublic } = useAxios();
   const dispatch = useDispatch();
 
-  const getReservations = async (brand) => {
+  const getReservations = async (id) => {
     dispatch(fetchStart());
     try {
-      const { data } = await axiosWithToken(`/reservations`);
+      const { data } = await axiosWithToken(`/${id}/reservations`);
 
       dispatch(getReservationSuccess({ data }));
     } catch (error) {
