@@ -10,20 +10,32 @@ import CarCard from "../components/CarCard";
 
 const Home = ({ search }) => {
   const { getCars } = useCarCalls();
-  const { cars } = useSelector((state) => state.car);
-  console.log("cars :>> ", cars);
+  const { cars, availiableCars } = useSelector((state) => state.car);
+
   useEffect(() => {
     getCars(search);
   }, [search]);
   return (
     <div className="pb-5">
-      <div>
-        <div className="flex flex-wrap gap-3 justify-center ">
-          {cars?.map((car) => (
-            <CarCard car={car} key={car._id} />
-          ))}
+      {availiableCars.length > 0 && (
+        <div>
+          <div className="flex flex-wrap gap-3 justify-center ">
+            {availiableCars?.map((car) => (
+              <CarCard car={car} key={car._id} />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
+
+      {availiableCars.length === 0 && (
+        <div>
+          <div className="flex flex-wrap gap-3 justify-center ">
+            {cars?.map((car) => (
+              <CarCard car={car} key={car._id} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

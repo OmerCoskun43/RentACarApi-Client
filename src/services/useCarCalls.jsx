@@ -1,5 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { fetchStart, fetchFail, getCarSuccess } from "../features/carSlice";
+import {
+  fetchStart,
+  fetchFail,
+  getCarSuccess,
+  getAvailiableCarsSuccess,
+} from "../features/carSlice";
 import useAxios from "./useAxios";
 import { toastErrorNotify } from "../helper/ToastNotify";
 
@@ -12,7 +17,9 @@ const useCarCalls = () => {
   const getCars = async (brand) => {
     dispatch(fetchStart());
     try {
-      const { data } = await axiosPublic(`/cars?search[brand]=${brand}`);
+      const { data } = await axiosPublic(
+        `/cars?search[brand]=${brand}&sort[updatedAt]=desc`
+      );
 
       dispatch(getCarSuccess({ data }));
     } catch (error) {
@@ -20,8 +27,19 @@ const useCarCalls = () => {
       toastErrorNotify(`Cars fetched unsuccessfully.`);
     }
   };
+  const getAvailableCars = async (date) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosPublic.post(`/cars/avaliableCarsList`, date);
 
-  return { getCars };
+      dispatch(getAvailiableCarsSuccess({ data }));
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify(`Cars fetched unsuccessfully.`);
+    }
+  };
+
+  return { getCars, getAvailableCars };
 };
 
 export default useCarCalls;

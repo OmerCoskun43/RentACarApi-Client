@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   cars: [],
+  availiableCars: [],
   loading: false,
   error: false,
 };
@@ -20,6 +21,11 @@ const carSlice = createSlice({
       state.loading = false;
       state.error = false;
     },
+    getAvailiableCarsSuccess: (state, action) => {
+      state.availiableCars = action.payload.data.data;
+      state.loading = false;
+      state.error = false;
+    },
 
     fetchFail: (state) => {
       state.loading = false;
@@ -28,6 +34,11 @@ const carSlice = createSlice({
   },
 });
 
-export const { fetchStart, getCarSuccess, fetchFail } = carSlice.actions;
+export const {
+  fetchStart,
+  getCarSuccess,
+  fetchFail,
+  getAvailiableCarsSuccess,
+} = carSlice.actions;
 
 export default carSlice.reducer;
